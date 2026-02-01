@@ -1,4 +1,5 @@
 import os
+import sys
 import subprocess
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
@@ -115,8 +116,9 @@ def process_clusters(clusters, camera_type):
             os.utime(str(output_file), (timestamp, timestamp))
 
 # Find all video files
-files = find_video_files("Viofo/Movie")
-print(f"Found {len(files)} video files.")
+video_path = sys.argv[1] if len(sys.argv) > 1 else exit()
+files = find_video_files(video_path)
+print(f"Found {len(files)} video files in {video_path}.")
 
 # Process files in parallel
 front = []
